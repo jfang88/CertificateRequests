@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Configuration for the CSR
-COUNTRY="US"
-STATE="California"
-LOCALITY="Mountain View"
-ORGANIZATION="MyCompany Inc."
+COUNTRY="HKG"
+STATE="Hong Kong"
+LOCALITY="TKO"
+ORGANIZATION="HKEX"
 ORGANIZATIONAL_UNIT="IT Department"
 COMMON_NAME="your_domain.com" # This should be your server's hostname or domain name
 EMAIL="admin@your_domain.com"
