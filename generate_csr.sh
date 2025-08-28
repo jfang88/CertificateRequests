@@ -20,11 +20,21 @@ KEY_FILE="server.key"
 CSR_FILE="server.csr"
 
 # Key parameters
+KEY_TYPE="p384" # Can be 'rsa', 'p256', or 'p384'
 KEY_BITS=2048
 DIGEST_ALGORITHM="sha256"
 
-# Generate the private key
-openssl genrsa -out $KEY_FILE $KEY_BITS
+# Generate the private key based on the selected key type
+if [ "$KEY_TYPE" = "rsa" ]; then
+    openssl genrsa -out $KEY_FILE $KEY_BITS
+elif [ "$KEY_TYPE" = "p256" ]; then
+    openssl ecparam -name prime256v1 -genkey -noout -out $KEY_FILE
+elif [ "$KEY_TYPE" = "p384" ]; then
+    openssl ecparam -name secp384r1 -genkey -noout -out $KEY_FILE
+else
+    echo "Invalid KEY_TYPE specified. Please choose 'rsa', 'p256', or 'p384'."
+    exit 1
+fi
 
 # Create the OpenSSL configuration file for the CSR
 cat > openssl.cnf <<EOF
@@ -63,5 +73,6 @@ echo "CSR: $CSR_FILE"
 
 # Clean up the temporary OpenSSL configuration file
 rm openssl.cnf
+
 
 
